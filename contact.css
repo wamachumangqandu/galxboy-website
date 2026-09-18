@@ -1,0 +1,113 @@
+:root {
+  --paper: #f1eee6;
+  --ink: #20201d;
+  --muted: #756f65;
+  --line: #d3ccc0;
+  --accent: #a55b3b;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.7;
+}
+header {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding: 24px clamp(20px, 6vw, 90px);
+}
+header h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+nav ul {
+  display: flex;
+  gap: 26px;
+  list-style: none;
+}
+nav a {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+nav a:hover {
+  color: var(--accent);
+}
+section {
+  margin: auto;
+  max-width: 900px;
+  padding: clamp(75px, 12vw, 150px) 24px;
+  text-align: center;
+}
+section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.3rem, 8vw, 7rem);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+  margin-bottom: 32px;
+}
+section > p:first-of-type {
+  color: var(--muted);
+  font-size: 1.05rem;
+  margin: 0 auto 65px;
+  max-width: 570px;
+}
+h3 {
+  border-top: 1px solid var(--line);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: 400;
+  padding-top: 24px;
+}
+section p:not(:first-of-type) {
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  padding: 18px 0;
+}
+footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 28px;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media (max-width: 1024px) {
+  section {
+    padding: 110px 32px;
+  }
+  section h2 {
+    font-size: clamp(3rem, 10vw, 6rem);
+  }
+}
+@media (max-width: 700px) {
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+  section {
+    padding: 72px 20px;
+  }
+  section h2 {
+    font-size: 2.8rem;
+  }
+}

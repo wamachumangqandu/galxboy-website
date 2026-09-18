@@ -1,0 +1,123 @@
+:root {
+  --paper: #f7f5ef;
+  --ink: #1c1c1a;
+  --muted: #777269;
+  --line: #d8d3c9;
+  --accent: #a55b3b;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: var(--paper) url("PUZZLE.jpg") center/cover fixed;
+  color: var(--ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+body::before {
+  background: rgba(247, 245, 239, 0.92);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+header {
+  align-items: center;
+  background: rgba(247, 245, 239, 0.97);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  justify-content: space-between;
+  padding: 22px clamp(20px, 5vw, 72px);
+}
+header h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+}
+nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+nav a {
+  color: var(--ink);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+nav a:hover {
+  color: var(--accent);
+}
+section {
+  margin: auto;
+  max-width: 1000px;
+  padding: clamp(110px, 18vw, 220px) 24px;
+  text-align: center;
+}
+section h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 0.86;
+}
+section p {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin: 34px auto;
+  max-width: 500px;
+}
+section a {
+  background: var(--ink);
+  color: var(--paper);
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 16px 28px;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+section a:hover {
+  background: var(--accent);
+}
+footer {
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 28px;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media (max-width: 1024px) {
+  section {
+    padding: 140px 32px;
+  }
+  section h2 {
+    font-size: clamp(3.5rem, 12vw, 7rem);
+  }
+}
+@media (max-width: 700px) {
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  nav ul {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+  section {
+    min-height: 0;
+    padding: 90px 20px;
+  }
+  section h2 {
+    font-size: clamp(3rem, 16vw, 5rem);
+  }
+}
