@@ -39,10 +39,12 @@ The official website for **GALXBOY**, a South African streetwear brand founded b
 - Product search, category filter and sorting on the Shop page.
 - Enquiry form that calculates an estimated items subtotal and lets the team confirm availability, delivery charges and fulfilment timing.
 - Enquiry form uses AJAX to send submissions to FormSubmit.
-- Contact form validates and submits messages to FormSubmit with AJAX, with a prepared email fallback if sending fails.
+- Contact form validates and submits messages to FormSubmit with AJAX, with standard form and email-app fallbacks if sending fails.
 - Reduced-motion support and keyboard focus styles.
 
 The enquiry form does not contain stock counts, delivery fees or lead-time estimates. It shows the configured product-price subtotal only; availability, delivery charges and fulfilment timing are confirmed by the GALXBOY team. Product prices should also be confirmed with the team before placing an order.
+
+FormSubmit requires the recipient to activate the email address after its first form submission. Check the recipient inbox and spam folder for the activation email and follow its link; the website cannot activate the address on the recipient's behalf.
 
 ## Contact details shown on the website
 

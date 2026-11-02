@@ -615,11 +615,26 @@
         body: JSON.stringify(payload),
         signal: controller.signal,
       });
-      if (!response.ok) return false;
-      const result = await response.json().catch(() => ({}));
-      return result.success === true || result.success === "true";
+      const responseText = await response.text();
+      let result = {};
+      try {
+        result = responseText ? JSON.parse(responseText) : {};
+      } catch (error) {
+        result = { message: responseText };
+      }
+
+      const ok = response.ok && (result.success === true || result.success === "true");
+      return {
+        ok,
+        message: ok ? "" : String(result.message || "The form service did not confirm delivery.").slice(0, 240),
+      };
     } catch (error) {
-      return false;
+      return {
+        ok: false,
+        message: error.name === "AbortError"
+          ? "The request timed out. Check your connection and try again."
+          : "The form service could not be reached. Check your connection and try again.",
+      };
     } finally {
       clearTimeout(timer);
     }
@@ -706,17 +721,17 @@
         notes: data.notes || "(none)",
       };
 
-      const sent = await postJSON(form.action, payload);
+      const result = await postJSON(form.action, payload);
       button.disabled = false;
 
-      if (sent) {
+      if (result.ok) {
         setStatus(status, "Enquiry sent. We will reply to " + data.email + ".", "ok");
       } else {
         const body = Object.entries(payload).filter(([k]) => k !== "_subject").map(([k, v]) => k + ": " + v).join("\n");
         setStatus(
           status,
           [
-            "Your price estimate is above, but we could not send the enquiry automatically. ",
+            "Your price estimate is above, but automatic sending failed: " + result.message + " ",
             el("a", { href: mailtoLink(payload._subject, body), text: "Send it from your email app instead" }),
             ".",
           ],
@@ -788,6 +803,7 @@
         _subject: subject,
         name: data.name,
         email: data.email,
+        _replyto: data.email,
         phone: data.phone || "(not provided)",
         topic: data.topic,
         message: data.message,
@@ -796,14 +812,35 @@
       button.disabled = true;
       setStatus(status, "Sending your message…", "");
 
-      const sent = await postJSON(form.action, payload);
+      const result = await postJSON(form.action, payload);
       button.disabled = false;
 
-      if (sent) {
+      if (result.ok) {
         preview.hidden = true;
         setStatus(status, "Message sent. We will reply to " + data.email + ".", "ok");
         return;
       }
+
+      const submitFallback = el("button", { class: "btn", type: "button", text: "Try standard form submission" });
+      submitFallback.addEventListener("click", () => {
+        const fallbackForm = document.createElement("form");
+        fallbackForm.method = "POST";
+        fallbackForm.action = form.action.replace("/ajax/", "/");
+        fallbackForm.target = "_blank";
+        fallbackForm.hidden = true;
+
+        Object.entries(payload).forEach(([name, value]) => {
+          const field = document.createElement("input");
+          field.type = "hidden";
+          field.name = name;
+          field.value = value;
+          fallbackForm.append(field);
+        });
+
+        document.body.append(fallbackForm);
+        fallbackForm.submit();
+        fallbackForm.remove();
+      });
 
       const copyButton = el("button", { class: "btn btn--ghost", type: "button", text: "Copy email text" });
       copyButton.addEventListener("click", async () => {
@@ -818,13 +855,18 @@
 
       preview.replaceChildren(
         el("h2", { text: "Send your message by email", id: "preview-heading", tabindex: "-1" }),
-        el("p", { text: "Automatic sending failed. Review the message, then send it from your email app." }),
+        el("p", { text: "Automatic sending failed: " + result.message }),
+        el("p", { text: "If this is the first submission, check the recipient inbox and spam folder for FormSubmit's activation email. The recipient must activate the address before submissions can be delivered." }),
         el("pre", { text: "To: " + SITE.recipient + "\nSubject: " + subject + "\n\n" + body }),
-        el("div", { class: "btn-row" }, el("a", { class: "btn", href: mailtoLink(subject, body), text: "Open in your email app" }), copyButton)
+        el("div", { class: "btn-row" },
+          submitFallback,
+          el("a", { class: "btn btn--ghost", href: mailtoLink(subject, body), text: "Open in your email app" }),
+          copyButton
+        )
       );
       preview.hidden = false;
       $("#preview-heading", preview).focus();
-      setStatus(status, "We could not send your message automatically. Use the email option below.", "error");
+      setStatus(status, "We could not send your message automatically. Try the standard form submission or email option below.", "error");
     });
 
     form.addEventListener("reset", () => {
