@@ -13,7 +13,7 @@
    6.  About: tabs
    7.  Support: accordion
    8.  Form validation helpers
-   9.  Enquiry form: validation, price and availability, AJAX submit
+   9.  Enquiry form: price estimate, request details, AJAX submit
    10. Contact form: validation and email compile
    11. Contact page: interactive map (Leaflet)
    ========================================================================== */
@@ -35,8 +35,6 @@
 
   const SIZES = ["S", "M", "L", "XL", "XXL"];
 
-  // SAMPLE DATA: stock counts, lead times and delivery fees below are
-  // placeholders. Replace them with the real figures before going live.
   const PRODUCTS = [
     {
       id: "bafana-active-tshirt",
@@ -48,7 +46,6 @@
       w: 597,
       h: 444,
       alt: "GALXBOY Bafana Active T-shirt in black with green and gold stripes and the number 10",
-      stock: { S: 2, M: 5, L: 4, XL: 0, XXL: 1 },
     },
     {
       id: "mini-coin-tshirt",
@@ -60,7 +57,6 @@
       w: 483,
       h: 444,
       alt: "Black GALXBOY Mini Coin T-shirt with the GXB circle logo on the chest",
-      stock: { S: 6, M: 8, L: 8, XL: 3, XXL: 0 },
     },
     {
       id: "galxboy-hoodie",
@@ -72,7 +68,6 @@
       w: 486,
       h: 444,
       alt: "GALXBOY hoodie in blue, red, green and white flag colours with the brand name across the chest",
-      stock: { S: 1, M: 2, L: 3, XL: 2, XXL: 0 },
     },
     {
       id: "vintage-tshirt-white",
@@ -84,7 +79,6 @@
       w: 510,
       h: 444,
       alt: "White GALXBOY vintage T-shirt with a red, green and yellow crest print",
-      stock: { S: 4, M: 6, L: 6, XL: 5, XXL: 2 },
     },
     {
       id: "vintage-tshirt-black",
@@ -96,29 +90,21 @@
       w: 525,
       h: 444,
       alt: "Black GALXBOY vintage T-shirt with a red, green and yellow crest print",
-      stock: { S: 3, M: 7, L: 5, XL: 0, XXL: 2 },
     },
   ];
 
-  const COLLECT = "Collect in store";
-  const DELIVERY_FEES = {
-    [COLLECT]: 0,
-    "Eastern Cape": 60,
-    "Western Cape": 95,
-    "Gauteng": 95,
-    "KwaZulu-Natal": 95,
-    "Free State": 95,
-    "Mpumalanga": 110,
-    "Limpopo": 110,
-    "North West": 110,
-    "Northern Cape": 120,
-  };
-
-  const LEAD_TIME = {
-    inStock: "Ready to ship in 2 to 3 working days",
-    partial: "In-stock items ship in 2 to 3 working days; the rest is a pre-order of 10 to 14 days",
-    out: "Pre-order only: allow 10 to 14 days if we restock this size",
-  };
+  const DELIVERY_OPTIONS = [
+    "Collect in store",
+    "Eastern Cape",
+    "Western Cape",
+    "Gauteng",
+    "KwaZulu-Natal",
+    "Free State",
+    "Mpumalanga",
+    "Limpopo",
+    "North West",
+    "Northern Cape",
+  ];
 
   /* 1. Helpers ------------------------------------------------------------ */
 
@@ -572,28 +558,9 @@
   function buildQuote(data) {
     const product = PRODUCTS.find((p) => p.id === data.product);
     const quantity = Number(data.quantity);
-    const inStock = product.stock[data.size];
     const subtotal = product.price * quantity;
-    const delivery = DELIVERY_FEES[data.delivery];
 
-    let level = "in";
-    let label = "In stock";
-    let note = LEAD_TIME.inStock;
-
-    if (inStock === 0) {
-      level = "out";
-      label = "Sold out in this size";
-      note = LEAD_TIME.out;
-    } else if (quantity > inStock) {
-      level = "low";
-      label = "Only " + inStock + " in stock";
-      note = LEAD_TIME.partial;
-    } else if (inStock <= 3) {
-      level = "low";
-      label = "Low stock: " + inStock + " left";
-    }
-
-    return { product, quantity, subtotal, delivery, total: subtotal + delivery, level, label, note };
+    return { product, quantity, subtotal };
   }
 
   function animateNumber(node, target) {
@@ -614,27 +581,27 @@
 
   function renderQuote(panel, data, quote) {
     const animated = el("span", { "aria-hidden": "true", text: rand(0) });
-    const finalTotal = el("span", { class: "visually-hidden", text: rand(quote.total) });
+    const finalSubtotal = el("span", { class: "visually-hidden", text: rand(quote.subtotal) });
 
     panel.replaceChildren(
-      el("h2", { text: "Your estimate", tabindex: "-1", id: "quote-heading" }),
+      el("h2", { text: "Your price estimate", tabindex: "-1", id: "quote-heading" }),
       el("p", {
         text: quote.quantity + " × " + quote.product.name + ", size " + data.size + ".",
       }),
       el("ul", { class: "quote__lines" },
         el("li", {}, el("span", { text: "Items (" + quote.quantity + " × " + rand(quote.product.price) + ")" }), el("span", { text: rand(quote.subtotal) })),
-        el("li", {}, el("span", { text: data.delivery === COLLECT ? "Collect in store" : "Delivery to " + data.delivery }), el("span", { text: quote.delivery ? rand(quote.delivery) : "Free" })),
-        el("li", {}, el("span", { text: "Estimated total" }), el("span", {}, animated, finalTotal))
+        el("li", {}, el("span", { text: data.delivery === "Collect in store" ? "Collection" : "Delivery to " + data.delivery }), el("span", { text: "Confirm with team" })),
+        el("li", {}, el("span", { text: "Estimated items subtotal" }), el("span", {}, animated, finalSubtotal))
       ),
-      el("p", { class: "badge badge--" + quote.level, text: quote.label }),
-      el("p", { text: quote.note + ". You asked for " + data.date + "." }),
-      el("p", { class: "small", text: "This is an estimate, not an invoice. We confirm price and stock with you before anything is made or sent." })
+      el("p", { class: "badge", text: "Availability and fulfilment time confirmed by the team" }),
+      el("p", { text: "You requested your order by " + data.date + "." }),
+      el("p", { class: "small", text: "The subtotal excludes delivery. The team will confirm availability, delivery charges and timing before processing your order." })
     );
     panel.hidden = false;
     panel.classList.remove("is-updated");
     void panel.offsetWidth;
     panel.classList.add("is-updated");
-    animateNumber(animated, quote.total);
+    animateNumber(animated, quote.subtotal);
     $("#quote-heading", panel).focus({ preventScroll: false });
   }
 
@@ -671,7 +638,7 @@
 
     PRODUCTS.forEach((p) => productSelect.append(el("option", { value: p.id, text: p.name + " – " + rand(p.price) })));
     SIZES.forEach((s) => sizeSelect.append(el("option", { value: s, text: s })));
-    Object.keys(DELIVERY_FEES).forEach((name) => deliverySelect.append(el("option", { value: name, text: name })));
+    DELIVERY_OPTIONS.forEach((name) => deliverySelect.append(el("option", { value: name, text: name })));
 
     dateInput.min = todayISO(0);
     dateInput.max = todayISO(90);
@@ -732,8 +699,10 @@
         quantity: data.quantity,
         delivery: data.delivery,
         "needed by": data.date,
-        "estimated total": rand(quote.total),
-        availability: quote.label,
+        "estimated items subtotal": rand(quote.subtotal),
+        "delivery charge": "To be confirmed",
+        availability: "To be confirmed",
+        "fulfilment time": "To be confirmed",
         notes: data.notes || "(none)",
       };
 
@@ -747,7 +716,7 @@
         setStatus(
           status,
           [
-            "Your estimate is above, but we could not send the enquiry automatically. ",
+            "Your price estimate is above, but we could not send the enquiry automatically. ",
             el("a", { href: mailtoLink(payload._subject, body), text: "Send it from your email app instead" }),
             ".",
           ],

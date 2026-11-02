@@ -3,6 +3,7 @@
 The official website for **GALXBOY**, a South African streetwear brand founded by Thatiso “Vuittots” Dube. The brand began in Mamelodi, Pretoria, and the website lists its store in Berea, East London.
 
 - **Live website:** [galxboyz.netlify.app](https://galxboyz.netlify.app/)
+- **GitHub repository:** [wamachumangqandu/galxboy-website](https://github.com/wamachumangqandu/galxboy-website)
 - **Project author:** W Ngqandu
 
 ## Website pages
@@ -12,7 +13,7 @@ The official website for **GALXBOY**, a South African streetwear brand founded b
 | Home | `index.html` | GALXBOY's history and links to the main sections |
 | About | `about.html` | The brand story, mission, vision and store photo gallery |
 | Shop | `service.html` | Product catalogue with search, category filtering, sorting and enlarged product photos |
-| Enquiry | `enquiry.html` | Product, size and delivery selection with an estimated total and availability |
+| Enquiry | `enquiry.html` | Product, size and delivery request with an estimated items subtotal |
 | Support | `support.html` | Frequently asked questions about orders, sizing, delivery and contacting the team |
 | Contact | `contact.html` | Contact details, a message form and a map of the East London store |
 
@@ -36,11 +37,12 @@ The official website for **GALXBOY**, a South African streetwear brand founded b
 - Responsive navigation and layouts for desktop, tablet and mobile screens.
 - Accessible tabs, FAQ accordion, keyboard-operable photo lightboxes and form validation.
 - Product search, category filter and sorting on the Shop page.
-- Enquiry form that calculates an estimated product and delivery total and reports catalogue availability.
-- Contact form that prepares an email for the visitor to review and send.
+- Enquiry form that calculates an estimated items subtotal and lets the team confirm availability, delivery charges and fulfilment timing.
+- Enquiry form uses AJAX to send submissions to FormSubmit.
+- Contact form validates the message and prepares a `mailto:` email for the visitor to review and send from their email app.
 - Reduced-motion support and keyboard focus styles.
 
-Product prices, availability, delivery charges and lead times are configured in `script.js`. They are catalogue estimates maintained by the site and are not connected to a live inventory or order-management system. Confirm current details with GALXBOY before relying on them.
+The enquiry form does not contain stock counts, delivery fees or lead-time estimates. It shows the configured product-price subtotal only; availability, delivery charges and fulfilment timing are confirmed by the GALXBOY team. Product prices should also be confirmed with the team before placing an order.
 
 ## Contact details shown on the website
 
@@ -52,8 +54,20 @@ Product prices, availability, delivery charges and lead times are configured in 
 
 Open `index.html` in a web browser. There is no build or installation step. An internet connection is needed for the map tiles and online enquiry form delivery.
 
+## Changelog
+
+### 2 November 2026
+
+- Updated the enquiry flow to remove unverified sample stock counts, delivery charges and fulfilment times. The form now shows an estimated items subtotal and asks the GALXBOY team to confirm availability, delivery and timing.
+- Updated the related copy on the Home, Shop, Support and Enquiry pages to describe the confirmation process accurately.
+- Documented that the Enquiry form submits with AJAX, while the Contact form prepares an email for the visitor to send.
+- Added the GitHub repository link and current contact details to this README.
+
 ## References
 
-- Leaflet: [leafletjs.com](https://leafletjs.com/)
-- FormSubmit: [formsubmit.co](https://formsubmit.co/)
-- OpenStreetMap: [openstreetmap.org](https://www.openstreetmap.org/)
+- FormSubmit. Form submission service: [formsubmit.co](https://formsubmit.co/).
+- Leaflet. Interactive map library: [leafletjs.com](https://leafletjs.com/).
+- MDN Web Docs. HTML forms guide: [developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms).
+- MDN Web Docs. Fetch API: [developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+- OpenStreetMap contributors. Map data and copyright: [openstreetmap.org](https://www.openstreetmap.org/copyright).
+- W3C Web Accessibility Initiative. ARIA Authoring Practices Guide: [w3.org/WAI/ARIA/apg](https://www.w3.org/WAI/ARIA/apg/).
