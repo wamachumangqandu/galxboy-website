@@ -3,27 +3,111 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GALXBOY | Streetwear Culture</title>
-    <link rel="stylesheet" href="support.css" />
+    <title>Support and FAQs | GALXBOY Streetwear</title>
+    <meta name="description" content="Answers about ordering GALXBOY streetwear: how to enquire, sizes, delivery, where to find the store and how to contact the team." />
+    <meta name="keywords" content="GALXBOY support, streetwear FAQ, how to order, sizes, delivery South Africa, contact GALXBOY" />
+    <meta name="author" content="GALXBOY" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
-  <body>
-    <header>
-      <h1>GALXBOY</h1>
-      <nav>
+  <body class="page-support">
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <a class="brand" href="index.html" aria-label="GALXBOY home">GALXBOY</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span class="nav-toggle__bar"></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="service.html">Shop</a></li>
-          <li><a href="support.html">Support</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
+          <li><a href="support.html" aria-current="page">Support</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-      </nav>
+        </nav>
+      </div>
     </header>
-    <section>
-      <h2>Bold. Authentic. Streetwear.</h2>
-      <p>Representing youth culture through fearless fashion.</p>
-      <a href="service.html">Shop Now</a>
-    </section>
-    <footer><p>&copy; 2026 GALXBOY. All rights reserved.</p></footer>
+    <main id="main">
+      <section class="support-hero">
+        <h1>Bold. Authentic. Streetwear.</h1>
+        <p>Representing youth culture through fearless fashion.</p>
+        <a class="btn" href="service.html">Shop Now</a>
+      </section>
+
+      <section class="section section--ruled" aria-labelledby="faq-heading">
+        <div class="container">
+          <h2 id="faq-heading">Frequently asked questions</h2>
+          <div class="accordion">
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__button" type="button" id="faq-q1" aria-expanded="true" aria-controls="faq-a1">How do I place an order?</button>
+            </h3>
+            <div class="accordion__panel" id="faq-a1" role="region" aria-labelledby="faq-q1">
+              <div><p>Use the <a href="enquiry.html">Enquiry page</a>. Pick your product, size and delivery option and you will see the estimated price and availability straight away. The enquiry also goes to our team, who follow up using the details you give.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__button" type="button" id="faq-q2" aria-expanded="true" aria-controls="faq-a2">What sizes are available?</button>
+            </h3>
+            <div class="accordion__panel" id="faq-a2" role="region" aria-labelledby="faq-q2">
+              <div><p>Sizes run from S to XXL. Availability changes by item and size, so the enquiry form shows what is in stock for the size you choose.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__button" type="button" id="faq-q3" aria-expanded="true" aria-controls="faq-a3">Do you deliver?</button>
+            </h3>
+            <div class="accordion__panel" id="faq-a3" role="region" aria-labelledby="faq-q3">
+              <div><p>Yes. Choose your province on the <a href="enquiry.html">Enquiry page</a> to see the delivery cost, or choose collect in store.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__button" type="button" id="faq-q4" aria-expanded="true" aria-controls="faq-a4">Where can I find the store?</button>
+            </h3>
+            <div class="accordion__panel" id="faq-a4" role="region" aria-labelledby="faq-q4">
+              <div><p>Our address is on the <a href="contact.html">Contact page</a>, with an interactive map you can zoom.</p></div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <h3>
+              <button class="accordion__button" type="button" id="faq-q5" aria-expanded="true" aria-controls="faq-a5">How do I reach the team?</button>
+            </h3>
+            <div class="accordion__panel" id="faq-a5" role="region" aria-labelledby="faq-q5">
+              <div><p>Email <a href="mailto:wamachumangqandu@gmail.com">wamachumangqandu@gmail.com</a>, call <a href="tel:+27738898423">0738898423</a>, or use the <a href="contact.html">contact form</a>.</p></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section cta-band">
+        <div class="container">
+          <h2>Still need help?</h2>
+          <p class="lede">Send us a message and the team will get back to you.</p>
+          <div class="btn-row">
+            <a class="btn" href="contact.html">Contact us</a>
+            <a class="btn btn--ghost" href="enquiry.html">Make an enquiry</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>&copy; 2026 GALXBOY. All rights reserved.</p>
+        <ul>
+        <li><a href="service.html">Shop</a></li>
+        <li><a href="enquiry.html">Enquiry</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>

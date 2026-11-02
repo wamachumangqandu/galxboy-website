@@ -3,33 +3,135 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact GALXBOY</title>
-    <link rel="stylesheet" href="contact.css" />
+    <title>Contact GALXBOY | Email, Phone and Store Location</title>
+    <meta name="description" content="Contact GALXBOY by email, phone or the contact form, and find the store on an interactive map in Berea, East London." />
+    <meta name="keywords" content="contact GALXBOY, GALXBOY address, East London streetwear store, Berea East London, GALXBOY phone, streetwear store map" />
+    <meta name="author" content="GALXBOY" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+    <script src="script.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ClothingStore",
+  "name": "GALXBOY",
+  "email": "wamachumangqandu@gmail.com",
+  "telephone": "+27738898423",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "28 Stewart Drive, Berea",
+    "addressLocality": "East London",
+    "addressRegion": "Eastern Cape",
+    "addressCountry": "ZA"
+  }
+}
+    </script>
   </head>
   <body>
-    <header>
-      <h1>GALXBOY</h1>
-      <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <a class="brand" href="index.html" aria-label="GALXBOY home">GALXBOY</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span class="nav-toggle__bar"></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
           <li><a href="service.html">Shop</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
           <li><a href="support.html">Support</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html" aria-current="page">Contact</a></li>
         </ul>
-      </nav>
+        </nav>
+      </div>
     </header>
-    <section>
-      <h2>Get in Touch</h2>
-      <p>
-        We’d love to hear from you. Reach out for support, collaborations, or
-        general inquiries.
-      </p>
-      <h3>Contact Details</h3>
-      <p>Email: info@galxboy.com</p>
-      <p>Phone: +27 71 084 4599</p>
-      <p>Address: 28 Stewart Drive, Berea, East London, South Africa</p>
-    </section>
-    <footer><p>&copy; 2026 GALXBOY. All rights reserved.</p></footer>
+    <main id="main">
+      <div class="container container--narrow">
+        <div class="page-head">
+          <h1>Get in Touch</h1>
+          <p class="lede">We’d love to hear from you. Reach out for support, collaborations, or general inquiries.</p>
+        </div>
+
+        <section aria-labelledby="details-heading">
+          <h2 id="details-heading" class="visually-hidden">Contact details</h2>
+          <ul class="contact-list">
+            <li><span>Email</span><a href="mailto:wamachumangqandu@gmail.com">wamachumangqandu@gmail.com</a></li>
+            <li><span>Phone</span><a href="tel:+27738898423">0738898423</a></li>
+            <li><span>Address</span><span>28 Stewart Drive, Berea, East London, South Africa</span></li>
+          </ul>
+        </section>
+      </div>
+
+      <section class="section" aria-labelledby="form-heading">
+        <div class="container">
+          <h2 id="form-heading">Send us a message</h2>
+          <form id="contact-form" class="form-card" action="mailto:wamachumangqandu@gmail.com" method="post" enctype="text/plain" novalidate>
+            <div class="form-grid">
+        <div class="field">
+          <label for="c-name">Full name <span class="req" aria-hidden="true">*</span></label>
+          <input type="text" id="c-name" name="name" required minlength="2" maxlength="60" autocomplete="name" aria-describedby="c-name-error" />
+          <p class="field__error" id="c-name-error" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="c-email">Email <span class="req" aria-hidden="true">*</span></label>
+          <input type="email" id="c-email" name="email" required maxlength="254" autocomplete="email" placeholder="name@example.com" aria-describedby="c-email-error" />
+          <p class="field__error" id="c-email-error" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="c-phone">Phone <span class="small">(optional)</span></label>
+          <input type="tel" id="c-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="0738898423" pattern="(\+27|0027|0)[\s\-]?[1-9]([\s\-]?[0-9]){8}" aria-describedby="c-phone-error" />
+          <p class="field__error" id="c-phone-error" role="alert"></p>
+        </div>
+        <div class="field">
+          <label for="c-topic">Message type <span class="req" aria-hidden="true">*</span></label>
+          <select id="c-topic" name="topic" required aria-describedby="c-topic-error"><option value="">Choose a message type</option><option>General enquiry</option><option>Support</option><option>Collaboration</option><option>Feedback</option><option>Media</option></select>
+          <p class="field__error" id="c-topic-error" role="alert"></p>
+        </div>
+        <div class="field field--full">
+          <label for="message">Message <span class="req" aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" required minlength="20" maxlength="1000" rows="6" placeholder="How can we help?" aria-describedby="message-error"></textarea>
+          <p class="field__count" id="message-count" aria-live="off"></p>
+          <p class="field__error" id="message-error" role="alert"></p>
+        </div>
+              <input type="text" name="_honey" class="honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            </div>
+            <div class="form-actions">
+              <button class="btn" type="submit">Check and prepare email</button>
+              <button class="btn btn--ghost" type="reset">Clear form</button>
+            </div>
+            <p id="contact-status" class="form-status" role="status"></p>
+          </form>
+          <section id="email-preview" class="email-preview" aria-live="polite" hidden></section>
+        </div>
+      </section>
+
+      <section class="section section--ruled" aria-labelledby="map-heading">
+        <div class="container">
+          <h2 id="map-heading">Find us</h2>
+          <div id="map" class="map" role="region" aria-label="Map showing the GALXBOY address in Berea, East London"></div>
+          <p class="map-links">
+            <a href="https://www.openstreetmap.org/search?query=28%20Stewart%20Drive%20Berea%20East%20London" target="_blank" rel="noopener noreferrer">Open in OpenStreetMap</a>
+            &nbsp;/&nbsp;
+            <a href="https://www.google.com/maps/search/?api=1&amp;query=28%20Stewart%20Drive%2C%20Berea%2C%20East%20London" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>&copy; 2026 GALXBOY. All rights reserved.</p>
+        <ul>
+        <li><a href="service.html">Shop</a></li>
+        <li><a href="enquiry.html">Enquiry</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>

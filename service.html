@@ -3,48 +3,94 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GALXBOY | Shop</title>
-    <link rel="stylesheet" href="service.css" />
+    <title>Shop GALXBOY | Streetwear T-Shirts and Hoodies</title>
+    <meta name="description" content="Browse GALXBOY streetwear: Bafana Active, Mini Coin and Vintage T-shirts and the GALXBOY hoodie. Search, filter, enlarge photos and enquire about your size." />
+    <meta name="keywords" content="GALXBOY shop, streetwear T-shirts South Africa, streetwear hoodie, Bafana Active T-shirt, vintage T-shirt, buy streetwear South Africa" />
+    <meta name="author" content="GALXBOY" />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <script>document.documentElement.classList.add("js");</script>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <header>
-      <h1>GALXBOY</h1>
-      <nav>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__bar">
+        <a class="brand" href="index.html" aria-label="GALXBOY home">GALXBOY</a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu">
+          <span class="nav-toggle__bar"></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="Main">
         <ul>
           <li><a href="index.html">Home</a></li>
           <li><a href="about.html">About</a></li>
-          <li><a href="service.html">Shop</a></li>
+          <li><a href="service.html" aria-current="page">Shop</a></li>
+          <li><a href="enquiry.html">Enquiry</a></li>
           <li><a href="support.html">Support</a></li>
           <li><a href="contact.html">Contact</a></li>
         </ul>
-      </nav>
+        </nav>
+      </div>
     </header>
-    <main>
-      <h2>Shop GALXBOY</h2>
-      <h3>BAFANA ACTIVE T-SHIRT</h3>
-      <img src="BAFANA.jfif" alt="GALXBOY Bafana Image" />
-      <p>Price: R700</p>
-      <h3>MINI COIN T-SHIRT</h3>
-      <img src="BLACK.jfif" alt="Black Image" />
-      <p>Price: R700</p>
-      <h3>GALXBOY Hoodie</h3>
-      <img src="FLAG.jfif" alt="Flag Image" />
-      <p>Price: R700</p>
-      <h3>VINTAGE T-SHIRT</h3>
-      <img src="OLD WHITE.jfif" alt="Old White Image" />
-      <p>Price: R700</p>
-      <h3>VINTAGE T-SHIRT</h3>
-      <img src="OLD.jfif" alt="Old Image" />
-      <p>Price: R700</p>
-      <section>
-        <h2>Mission and Vision</h2>
-        <p>
-          GALXBOY aims to become the leading streetwear brand on the African
-          continent. Inspiring the youth through creative design, innovation and
-          affordable pricing driven by the brand’s mantra of SMART. AFRICAN.
-          AMBITIOUS
-        </p>
+    <main id="main">
+      <div class="container">
+        <div class="page-head">
+          <h1>Shop GALXBOY</h1>
+          <p class="lede">Select a photo to see it larger, then enquire to check your size and price.</p>
+        </div>
+
+        <form id="shop-tools" class="shop-tools" role="search" aria-label="Search and filter products">
+          <div class="field-inline search-box">
+            <label for="shop-search">Search products</label>
+            <input type="search" id="shop-search" name="q" placeholder="Try “hoodie” or “black”" autocomplete="off" maxlength="60" />
+          </div>
+          <div class="field-inline">
+            <label for="shop-category">Category</label>
+            <select id="shop-category" name="category">
+              <option value="">All categories</option>
+            </select>
+          </div>
+          <div class="field-inline">
+            <label for="shop-sort">Sort by</label>
+            <select id="shop-sort" name="sort">
+              <option value="featured">Featured</option>
+              <option value="name-asc">Name, A to Z</option>
+              <option value="name-desc">Name, Z to A</option>
+              <option value="price-asc">Price, low to high</option>
+              <option value="price-desc">Price, high to low</option>
+            </select>
+          </div>
+        </form>
+
+        <p id="shop-status" class="shop-status" role="status"></p>
+        <ul id="product-grid" class="product-grid"></ul>
+        <div id="shop-empty" class="empty-state" aria-live="polite"></div>
+        <noscript>
+          <p class="empty-state">The product list needs JavaScript. Turn it on, or email <a href="mailto:wamachumangqandu@gmail.com">wamachumangqandu@gmail.com</a> and we will send you the collection.</p>
+        </noscript>
+      </div>
+
+      <section class="section section--ruled">
+        <div class="container container--narrow" style="text-align: center">
+          <h2>Not sure about your size?</h2>
+          <p class="lede">Enquire and we will show the price and stock for your size, or read the answers on our support page.</p>
+          <div class="btn-row" style="margin-top: 1.5rem">
+            <a class="btn" href="enquiry.html">Make an enquiry</a>
+            <a class="btn btn--ghost" href="support.html">Support and FAQs</a>
+          </div>
+        </div>
       </section>
     </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <p>&copy; 2026 GALXBOY. All rights reserved.</p>
+        <ul>
+        <li><a href="service.html">Shop</a></li>
+        <li><a href="enquiry.html">Enquiry</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>
