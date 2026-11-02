@@ -14,7 +14,7 @@
    7.  Support: accordion
    8.  Form validation helpers
    9.  Enquiry form: price estimate, request details, AJAX submit
-   10. Contact form: validation and email compile
+   10. Contact form: validation, AJAX submit and email fallback
    11. Contact page: interactive map (Leaflet)
    ========================================================================== */
 
@@ -762,7 +762,7 @@
       },
     });
 
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
       setStatus(status, "", "");
 
@@ -774,7 +774,6 @@
       const data = Object.fromEntries(new FormData(form).entries());
       if (data._honey) return;
 
-      // Compile the validated fields into one email addressed to the recipient set in SITE
       const subject = "GALXBOY website: " + data.topic + " from " + data.name;
       const body = [
         "Message type: " + data.topic,
@@ -784,6 +783,27 @@
         "",
         data.message,
       ].join("\n");
+
+      const payload = {
+        _subject: subject,
+        name: data.name,
+        email: data.email,
+        phone: data.phone || "(not provided)",
+        topic: data.topic,
+        message: data.message,
+      };
+      const button = $('button[type="submit"]', form);
+      button.disabled = true;
+      setStatus(status, "Sending your message…", "");
+
+      const sent = await postJSON(form.action, payload);
+      button.disabled = false;
+
+      if (sent) {
+        preview.hidden = true;
+        setStatus(status, "Message sent. We will reply to " + data.email + ".", "ok");
+        return;
+      }
 
       const copyButton = el("button", { class: "btn btn--ghost", type: "button", text: "Copy email text" });
       copyButton.addEventListener("click", async () => {
@@ -797,14 +817,14 @@
       });
 
       preview.replaceChildren(
-        el("h2", { text: "Your email is ready", id: "preview-heading", tabindex: "-1" }),
-        el("p", { text: "Check the details, then send it from your email app." }),
+        el("h2", { text: "Send your message by email", id: "preview-heading", tabindex: "-1" }),
+        el("p", { text: "Automatic sending failed. Review the message, then send it from your email app." }),
         el("pre", { text: "To: " + SITE.recipient + "\nSubject: " + subject + "\n\n" + body }),
         el("div", { class: "btn-row" }, el("a", { class: "btn", href: mailtoLink(subject, body), text: "Open in your email app" }), copyButton)
       );
       preview.hidden = false;
       $("#preview-heading", preview).focus();
-      setStatus(status, "Message checked. Your email is ready below.", "ok");
+      setStatus(status, "We could not send your message automatically. Use the email option below.", "error");
     });
 
     form.addEventListener("reset", () => {

@@ -1,2 +1,2 @@
 
-Sitemap: https://galxboyz.netlify.app
+Sitemap: https://galxboyz.netlify.app/sitemap.xml

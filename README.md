@@ -39,7 +39,7 @@ The official website for **GALXBOY**, a South African streetwear brand founded b
 - Product search, category filter and sorting on the Shop page.
 - Enquiry form that calculates an estimated items subtotal and lets the team confirm availability, delivery charges and fulfilment timing.
 - Enquiry form uses AJAX to send submissions to FormSubmit.
-- Contact form validates the message and prepares a `mailto:` email for the visitor to review and send from their email app.
+- Contact form validates and submits messages to FormSubmit with AJAX, with a prepared email fallback if sending fails.
 - Reduced-motion support and keyboard focus styles.
 
 The enquiry form does not contain stock counts, delivery fees or lead-time estimates. It shows the configured product-price subtotal only; availability, delivery charges and fulfilment timing are confirmed by the GALXBOY team. Product prices should also be confirmed with the team before placing an order.
@@ -52,7 +52,7 @@ The enquiry form does not contain stock counts, delivery fees or lead-time estim
 
 ## Run locally
 
-Open `index.html` in a web browser. There is no build or installation step. An internet connection is needed for the map tiles and online enquiry form delivery.
+Open `index.html` in a web browser. There is no build or installation step. An internet connection is needed for the map tiles and online form delivery.
 
 ## Changelog
 
@@ -60,7 +60,8 @@ Open `index.html` in a web browser. There is no build or installation step. An i
 
 - Updated the enquiry flow to remove unverified sample stock counts, delivery charges and fulfilment times. The form now shows an estimated items subtotal and asks the GALXBOY team to confirm availability, delivery and timing.
 - Updated the related copy on the Home, Shop, Support and Enquiry pages to describe the confirmation process accurately.
-- Documented that the Enquiry form submits with AJAX, while the Contact form prepares an email for the visitor to send.
+- Both Enquiry and Contact forms submit with AJAX and provide an email fallback if automatic sending fails.
+- Corrected `robots.txt` to reference the sitemap and updated every sitemap URL to the live `galxboyz.netlify.app` domain.
 - Added the GitHub repository link and current contact details to this README.
 
 ## References
